@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Time tracking dashboard</title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      body{
+        background-color: azure;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .attribution {
+        font-size: 1.3rem;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+      .container {
+        background-color: #231c3b;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 50px;
+        width: 90%;
+        justify-content: center;
+        /* height: 530px; */
+        margin: 50px auto;
+      }
+      .reporter {
+        margin: 0 10px;
+        background-color: rgb(7, 0, 100);
+        width: 225px;
+        height: 100%;
+        display: flex;
+        border-radius: 15px;
+        flex-direction: column;
+      }
+      .profile-photo {
+        display: block;
+        border: 3px solid white;
+        border-radius: 50%;
+        height: 70px;
+      }
+      .reporter .box {
+        border-radius: 15px;
+        padding: 36px 24px;
+        background-color: rgb(83, 83, 250);
+        color: white;
+      }
+      .box p {
+        color: rgb(202, 201, 201);
+        font-size: 0.8rem;
+      }
+      .nav-box {
+        display: flex;
+        flex-direction: column;
+        margin-top: 5px;
+      }
+      #daily,
+      #weekly,
+      #monthly {
+        padding: 9px 20px;
+        font-size: 1.15rem;
+        color: rgb(166 166 248);
+        cursor: pointer;
+      }
+      .active {
+        color: white !important;
+      }
+      .name {
+        margin: 27px 0;
+        font-family: "Times New Roman", Times, serif;
+      }
+      .name p {
+        font-size: 1rem;
+      }
+
+      .challenge-dashboard {
+        display: flex;
+        flex-wrap: wrap;
+        color: white;
+        margin: 0 10px;
+        justify-content: center;
+        align-content: space-between;
+        width: 880px;
+      }
+      .challenge {
+        /* position: relative; */
+        /* background-color: black; */
+        width: 270px;
+        margin: 0 8px;
+        border-radius: 15px;
+      }
+      .challenge .img-space {
+        right: 5px;
+        height: 38px;
+        z-index: 0;
+      }
+      .box-1 {
+        clear: both;
+        z-index: 2;
+        border-radius: 15px;
+        padding: 19px;
+        background-color: rgb(4, 61, 61);
+      }
+
+      #Work,
+      #Play,
+      #Study,
+      #Exercise,
+      #Social,
+      #Self {
+        
+        background-repeat: no-repeat;
+        background-size: 60px;
+        background-position: top right;
+        background-position-y: -5px;
+      }
+      #Work{
+        background-color: orange;
+        background-image: url("./images/icon-work.svg");
+      }
+      #Play{
+        background-color: aqua;
+        background-image: url("./images/icon-play.svg");
+      }
+      #Study{
+        background-color: pink;
+        background-image: url("./images/icon-study.svg");
+      }
+      #Exercise{
+        background-color: rgb(89, 238, 89);
+        background-image: url("./images/icon-exercise.svg");
+      }
+      #Social{
+        background-color: violet;
+        background-image: url("./images/icon-social.svg");
+      }
+      #Self{
+        background-color: yellow;
+        background-image: url("./images/icon-self-care.svg");
+      }
+
+      .head {
+        display: flex;
+        font-weight: bold;
+        font-size: 1.2rem;
+        justify-content: space-between;
+      }
+      .option:hover {
+        color: white;
+        cursor: pointer;
+      }
+      .mid {
+        display: flex;
+        flex-direction: column;
+        margin: 12px 0 0 0;
+        justify-content: space-between;
+      }
+      .time {
+        font-size: 2.5rem;
+        padding: 0 2px;
+      }
+      .foot {
+        color: rgb(202, 208, 212);
+        padding-top: 5px;
+        font-size: 1.15rem;
+      }
+
+      @media screen and (max-width: 1000px) {
+        .container {
+          padding: 8px;
+        }
+        .reporter {
+          width: 330px;
+        }
+        .reporter .box {
+          display: flex;
+        }
+        .name {
+          margin: 0 27px;
+        }
+        .nav-box {
+          flex-direction: row;
+          justify-content: space-around;
+          margin: 12px 0;
+        }
+        #daily,
+        #weekly,
+        #monthly {
+          text-align: center;
+        }
+        .challenge {
+          width: 330px;
+          margin: 12px 0;
+        }
+        .mid {
+          flex-direction: row;
+          align-items: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="reporter">
+        <div class="box">
+          <img class="profile-photo" src="./images/image-jeremy.png" alt="" />
+          <div class="name">
+            <p>Report for</p>
+            <h1>Jeremy</h1>
+            <h1>Robson</h1>
+          </div>
+        </div>
+        <div class="nav-box">
+          <span id="daily" onclick="load('daily')">Daily</span>
+          <span id="weekly" onclick="load('weekly')">Weekly</span>
+          <span id="monthly" onclick="load('monthly')">Monthly</span>
+        </div>
+      </div>
+
+      <div class="challenge-dashboard" id="challenge">
+        
+      </div>
+    </div>
+
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by
+      <a href="https://me.ayushnandanwar.repl.co/" target="_blank"
+        >Ayush Nandanwar</a
+      >.
+    </div>
+
+    <script>
+      const challenge = document.getElementById("challenge");
+      let jsonData = [
+        {
+          title: "Work",
+          timeframes: {
+            daily: {
+              current: 5,
+              previous: 7,
+            },
+            weekly: {
+              current: 32,
+              previous: 36,
+            },
+            monthly: {
+              current: 103,
+              previous: 128,
+            },
+          },
+        },
+        {
+          title: "Play",
+          timeframes: {
+            daily: {
+              current: 1,
+              previous: 2,
+            },
+            weekly: {
+              current: 10,
+              previous: 8,
+            },
+            monthly: {
+              current: 23,
+              previous: 29,
+            },
+          },
+        },
+        {
+          title: "Study",
+          timeframes: {
+            daily: {
+              current: 0,
+              previous: 1,
+            },
+            weekly: {
+              current: 4,
+              previous: 7,
+            },
+            monthly: {
+              current: 13,
+              previous: 19,
+            },
+          },
+        },
+        {
+          title: "Exercise",
+          timeframes: {
+            daily: {
+              current: 1,
+              previous: 1,
+            },
+            weekly: {
+              current: 4,
+              previous: 5,
+            },
+            monthly: {
+              current: 11,
+              previous: 18,
+            },
+          },
+        },
+        {
+          title: "Social",
+          timeframes: {
+            daily: {
+              current: 1,
+              previous: 3,
+            },
+            weekly: {
+              current: 5,
+              previous: 10,
+            },
+            monthly: {
+              current: 21,
+              previous: 23,
+            },
+          },
+        },
+        {
+          title: "Self Care",
+          timeframes: {
+            daily: {
+              current: 0,
+              previous: 1,
+            },
+            weekly: {
+              current: 2,
+              previous: 2,
+            },
+            monthly: {
+              current: 7,
+              previous: 11,
+            },
+          },
+        },
+      ];
+      let Wdata = [];
+      let Ddata = [];
+      let Mdata = [];
+      for (let i = 0; i < 6; i++) {
+        Wdata[i] = `
+        <div class="challenge" id="${jsonData[i].title.split(' ')[0]}">
+          <div class="img-space"></div>
+
+          <div class="box-1">
+            <div class="head">
+              <div id="title">${jsonData[i].title}</div>
+              <div class="option"><img src="./images/icon-ellipsis.svg" alt=""></div>
+            </div>
+
+            <div class="mid">
+              <div class="time" id="current">${jsonData[i].timeframes.weekly.current}hrs</div>
+              <div class="foot" id="previous">Last-week - ${jsonData[i].timeframes.weekly.previous}hrs</div>
+            </div>
+          </div>
+        </div>
+        `;
+        Ddata[i] = `
+        <div class="challenge" id="${jsonData[i].title.split(' ')[0]}">
+          <div class="img-space"></div>
+
+          <div class="box-1">
+            <div class="head">
+              <div id="title">${jsonData[i].title}</div>
+              <div class="option"><img src="./images/icon-ellipsis.svg" alt=""></div>
+            </div>
+
+            <div class="mid">
+              <div class="time" id="current">${jsonData[i].timeframes.daily.current}hrs</div>
+              <div class="foot" id="previous">Last-day - ${jsonData[i].timeframes.daily.previous}hrs</div>
+            </div>
+          </div>
+        </div>
+        `;
+        Mdata[i] = `
+        <div class="challenge" id="${jsonData[i].title.split(' ')[0]}">
+          <div class="img-space"></div>
+
+          <div class="box-1">
+            <div class="head">
+              <div id="title">${jsonData[i].title}</div>
+              <div class="option"><img src="./images/icon-ellipsis.svg" alt=""></div>
+            </div>
+
+            <div class="mid">
+              <div class="time" id="current">${jsonData[i].timeframes.monthly.current}hrs</div>
+              <div class="foot" id="previous">Last-month - ${jsonData[i].timeframes.monthly.previous}hrs</div>
+            </div>
+          </div>
+        </div>
+        `;
+      }
+      function clear() {
+        challenge.innerHTML = "";
+        document.getElementById('daily').classList.remove('active');
+        document.getElementById('weekly').classList.remove('active');
+        document.getElementById('monthly').classList.remove('active');
+      }
+
+      function load(id) {
+        clear();
+        document.getElementById(id).classList.toggle("active");
+        if(id == 'daily'){
+          for (let i = 0; i < 6; i++) {
+          challenge.insertAdjacentHTML("beforeend", Ddata[i]);
+        }
+        }
+        else if(id == 'weekly'){
+          for (let i = 0; i < 6; i++) {
+          challenge.insertAdjacentHTML("beforeend", Wdata[i]);
+        }
+        }
+        else if(id == 'monthly'){
+          for (let i = 0; i < 6; i++) {
+          challenge.insertAdjacentHTML("beforeend", Mdata[i]);
+        }
+        }
+      }
+      load('weekly');
+      // challenge.insertAdjacentHTML("beforeend",data);
+    </script>
+  </body>
+</html>
